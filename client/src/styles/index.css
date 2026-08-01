@@ -197,41 +197,14 @@ button {
 }
 
 /* ==============================================
-   SCROLL INTERSECTION ANIMATIONS
+   SCROLL INTERSECTION ANIMATIONS (FAIL-SAFE VISIBLE)
    ============================================== */
 .reveal-on-scroll {
-  opacity: 1; /* Safety default: visible by default so no section is ever hidden */
-  transform: translateY(0);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1 !important;
+  transform: translateY(0) translateX(0) scale(1) !important;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-/* Initial States prior to IntersectionObserver trigger */
-.reveal-fade-up:not(.is-visible) {
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.reveal-fade-down:not(.is-visible) {
-  opacity: 0;
-  transform: translateY(-30px);
-}
-
-.reveal-slide-left:not(.is-visible) {
-  opacity: 0;
-  transform: translateX(-35px);
-}
-
-.reveal-slide-right:not(.is-visible) {
-  opacity: 0;
-  transform: translateX(35px);
-}
-
-.reveal-zoom:not(.is-visible) {
-  opacity: 0;
-  transform: scale(0.95);
-}
-
-/* Visible State (Triggered on Scroll) */
 .reveal-on-scroll.is-visible {
   opacity: 1 !important;
   transform: translateY(0) translateX(0) scale(1) !important;
