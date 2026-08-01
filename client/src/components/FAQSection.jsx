@@ -1,24 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
 
+const DEFAULT_FAQS = [
+  { question: "What treatments does SkinSpree Clinic specialize in?", answer: "SkinSpree Clinic specializes in medical dermatology, aesthetic skin rejuvenation, laser scar removal, anti-aging therapies, pigmentation correction, and hair restoration." },
+  { question: "How do I book an appointment with a dermatologist?", answer: "You can easily book an appointment online using our interactive booking button on the website, or call our helpline at +1 (555) 864-4444." },
+  { question: "Are laser skin treatments safe for sensitive skin?", answer: "Yes! We use medical-grade, FDA-cleared cooling lasers tailored precisely to your specific skin type after a patch test." },
+  { question: "Where is SkinSpree Clinic located?", answer: "Our main flagship clinic is located at 350 5th Ave, New York, NY 10118. We offer both in-clinic visits and virtual tele-dermatology consultations." }
+];
+
 export default function FAQSection() {
-  const [faqs, setFaqs] = useState([]);
+  const [faqs, setFaqs] = useState(DEFAULT_FAQS);
   const [openIdx, setOpenIdx] = useState(0);
 
   useEffect(() => {
     fetch('/api/faqs')
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) setFaqs(data.data);
+      .then(res => {
+        const contentType = res.headers.get('content-type');
+        if (res.ok && contentType && contentType.includes('application/json')) {
+          return res.json();
+        }
+        return null;
       })
-      .catch(() => {
-        setFaqs([
-          { question: "What treatments does SkinSpree Clinic specialize in?", answer: "SkinSpree Clinic specializes in medical dermatology, aesthetic skin rejuvenation, laser scar removal, anti-aging therapies, pigmentation correction, and hair restoration." },
-          { question: "How do I book an appointment with a dermatologist?", answer: "You can easily book an appointment online using our interactive booking button on the website, or call our helpline at +1 (555) 864-4444." },
-          { question: "Are laser skin treatments safe for sensitive skin?", answer: "Yes! We use medical-grade, FDA-cleared cooling lasers tailored precisely to your specific skin type after a patch test." },
-          { question: "Where is SkinSpree Clinic located?", answer: "Our main flagship clinic is located at 350 5th Ave, New York, NY 10118. We offer both in-clinic visits and virtual tele-dermatology consultations." }
-        ]);
-      });
+      .then(data => {
+        if (data && data.success && Array.isArray(data.data) && data.data.length > 0) {
+          setFaqs(data.data);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   return (

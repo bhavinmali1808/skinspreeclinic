@@ -1,49 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { Sparkles, CheckCircle2, MessageCircle, ArrowRight } from 'lucide-react';
 
+const DEFAULT_SERVICES = [
+  {
+    id: "srv-1",
+    title: "Acne & Scar Treatment",
+    description: "Effective solutions for active acne, acne scars, and open pores using chemical peels, microneedling, and RF Matrix treatments."
+  },
+  {
+    id: "srv-2",
+    title: "Pigmentation & Brightening",
+    description: "Advanced treatments for hyper-pigmentation, melasma, and skin brightening to restore your natural glow and even skin tone."
+  },
+  {
+    id: "srv-3",
+    title: "Anti-Aging & Wrinkles",
+    description: "Minimally invasive Botox and Dermal Fillers to reduce fine lines, wrinkles, and restore youthful volume to your face."
+  },
+  {
+    id: "srv-4",
+    title: "Laser Hair Reduction",
+    description: "Safe and permanent laser hair removal solutions using the latest technology for a smooth, hair-free skin experience."
+  },
+  {
+    id: "srv-5",
+    title: "Hair Fall & Trichology",
+    description: "Medical-grade treatments for hair loss, thinning, and scalp conditions, focusing on healthy hair growth and restoration."
+  },
+  {
+    id: "srv-6",
+    title: "HydraFacial & Skin Rejuvenation",
+    description: "Deep cleansing, exfoliation, and hydration treatments to revitalize dull, tired skin and achieve a healthy, glowing complexion."
+  }
+];
+
 export default function Services({ onOpenBooking }) {
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState(DEFAULT_SERVICES);
 
   useEffect(() => {
     fetch('/api/services')
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) setServices(data.data);
+      .then(res => {
+        const contentType = res.headers.get('content-type');
+        if (res.ok && contentType && contentType.includes('application/json')) {
+          return res.json();
+        }
+        return null;
       })
-      .catch(() => {
-        setServices([
-          {
-            id: "srv-1",
-            title: "Acne & Scar Treatment",
-            description: "Effective solutions for active acne, acne scars, and open pores using chemical peels, microneedling, and RF Matrix treatments."
-          },
-          {
-            id: "srv-2",
-            title: "Pigmentation & Brightening",
-            description: "Advanced treatments for hyper-pigmentation, melasma, and skin brightening to restore your natural glow and even skin tone."
-          },
-          {
-            id: "srv-3",
-            title: "Anti-Aging & Wrinkles",
-            description: "Minimally invasive Botox and Dermal Fillers to reduce fine lines, wrinkles, and restore youthful volume to your face."
-          },
-          {
-            id: "srv-4",
-            title: "Laser Hair Reduction",
-            description: "Safe and permanent laser hair removal solutions using the latest technology for a smooth, hair-free skin experience."
-          },
-          {
-            id: "srv-5",
-            title: "Hair Fall & Trichology",
-            description: "Medical-grade treatments for hair loss, thinning, and scalp conditions, focusing on healthy hair growth and restoration."
-          },
-          {
-            id: "srv-6",
-            title: "HydraFacial & Skin Rejuvenation",
-            description: "Deep cleansing, exfoliation, and hydration treatments to revitalize dull, tired skin and achieve a healthy, glowing complexion."
-          }
-        ]);
-      });
+      .then(data => {
+        if (data && data.success && Array.isArray(data.data) && data.data.length > 0) {
+          setServices(data.data);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   return (
