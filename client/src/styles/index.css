@@ -244,15 +244,21 @@ button {
 .delay-400 { transition-delay: 0.4s; }
 
 /* Responsive Utilities & Mobile Breakpoints */
-.mobile-toggle-btn {
+.header-desktop-cta {
+  display: inline-flex;
+}
+
+.header-mobile-toggle {
   display: none;
 }
 
 @media (max-width: 900px) {
-  .desktop-nav {
+  .desktop-nav,
+  .header-desktop-cta {
     display: none !important;
   }
-  .mobile-toggle-btn {
+  
+  .header-mobile-toggle {
     display: flex !important;
   }
   
@@ -267,30 +273,27 @@ button {
   }
 
   h1 {
-    font-size: 2.2rem !important;
+    font-size: 2.1rem !important;
   }
 
   h2 {
-    font-size: 1.8rem !important;
+    font-size: 1.7rem !important;
   }
 
   /* Modal responsiveness */
   .glass-card {
-    padding: 24px !important;
+    padding: 20px !important;
   }
 }
 
 @media (max-width: 768px) {
-  .hero-floating-card {
-    display: none !important;
-  }
-
+  .hero-floating-card,
   .topbar-details {
     display: none !important;
   }
 
   #hero img {
-    height: 260px !important;
+    height: 240px !important;
   }
 
   /* Floating WhatsApp button scaling for mobile */
@@ -300,12 +303,12 @@ button {
   }
 
   div[style*="fixed"][style*="bottom"] a {
-    width: 50px !important;
-    height: 50px !important;
+    width: 48px !important;
+    height: 48px !important;
   }
 
   div[style*="fixed"][style*="bottom"] svg {
-    width: 26px !important;
-    height: 26px !important;
+    width: 24px !important;
+    height: 24px !important;
   }
 }

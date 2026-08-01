@@ -73,14 +73,14 @@ export default function Header({ onOpenBooking }) {
 
         {/* CTA & Mobile Toggle */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <button onClick={onOpenBooking} className="btn-primary desktop-btn" style={{ padding: '10px 20px', fontSize: '0.9rem' }}>
+          <button onClick={onOpenBooking} className="btn-primary header-desktop-cta" style={{ padding: '10px 20px', fontSize: '0.9rem' }}>
             <Calendar size={16} />
             <span>Ask for Appointment</span>
           </button>
 
           {/* Hamburger Menu Toggle (Mobile) */}
           <button 
-            className="mobile-toggle-btn"
+            className="header-mobile-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             style={{ background: '#f1f5f9', border: 'none', padding: '8px', borderRadius: '8px', color: '#0f172a', cursor: 'pointer' }}
           >

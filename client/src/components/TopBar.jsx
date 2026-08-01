@@ -17,15 +17,17 @@ export default function TopBar() {
 
   return (
     <div style={{ background: '#0f172a', color: '#94a3b8', fontSize: '0.825rem', padding: '6px 0', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-      <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'nowrap', gap: '12px' }}>
+      <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
 
         {/* Banner Offer */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#f8fafc', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#f8fafc', maxWidth: '100%' }}>
           <Tag size={14} color="#f97316" style={{ flexShrink: 0 }} />
-          <span style={{ fontSize: '0.8rem' }}>Get up to <strong style={{ color: '#38bdf8' }}>20% OFF</strong> HydraFacial & Laser Sessions!</span>
+          <span style={{ fontSize: '0.8rem', lineHeight: '1.3' }}>
+            Get up to <strong style={{ color: '#38bdf8' }}>20% OFF</strong> HydraFacial & Laser Sessions!
+          </span>
         </div>
 
-        {/* Info & Notification Sound Toggle (Hidden or compact on mobile) */}
+        {/* Info & Notification Sound Toggle (Desktop Only) */}
         <div className="topbar-details" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#e2e8f0' }}>
             <MapPin size={14} color="#38bdf8" />
@@ -47,10 +49,9 @@ export default function TopBar() {
             <span>WhatsApp Us</span>
           </a>
 
-          {/* Sound & Browser Notification Test Button */}
           <button
             onClick={handleEnableNotifications}
-            title="Enable and test completion sound & desktop notifications"
+            title="Enable sound & desktop notifications"
             style={{
               background: notifGranted ? 'rgba(34, 197, 94, 0.15)' : 'rgba(59, 130, 246, 0.15)',
               color: notifGranted ? '#4ade80' : '#60a5fa',
@@ -62,8 +63,7 @@ export default function TopBar() {
               gap: '6px',
               fontSize: '0.75rem',
               fontWeight: '600',
-              cursor: 'pointer',
-              whiteSpace: 'nowrap'
+              cursor: 'pointer'
             }}
           >
             <Bell size={12} />
