@@ -1,9 +1,10 @@
 {
   "name": "skinspreeclinic",
   "version": "1.0.0",
-  "description": "",
+  "description": "SkinSpree Clinic MERN application",
   "main": "index.js",
   "scripts": {
+    "build": "npm run build --prefix client",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
