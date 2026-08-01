@@ -4,6 +4,8 @@
   --primary-light: #eff6ff;
   --accent-orange: #f97316;
   --accent-orange-hover: #ea580c;
+  --whatsapp-green: #25D366;
+  --whatsapp-green-hover: #128C7E;
   --secondary-blue: #3b82f6;
   --dark-slate: #0f172a;
   --text-main: #1e293b;
@@ -25,6 +27,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -67,15 +73,15 @@ button {
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 25px 40px -12px rgba(37, 99, 235, 0.2);
 }
 
-/* Buttons */
+/* Buttons & Animations */
 .btn-primary {
   background: var(--primary);
   color: #ffffff;
@@ -86,13 +92,15 @@ button {
   align-items: center;
   gap: 8px;
   box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-primary:hover {
   background: var(--primary-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.45);
 }
 
 .btn-accent {
@@ -105,12 +113,32 @@ button {
   align-items: center;
   gap: 8px;
   box-shadow: 0 4px 14px rgba(249, 115, 22, 0.35);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-accent:hover {
   background: var(--accent-orange-hover);
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(249, 115, 22, 0.45);
+}
+
+.btn-whatsapp {
+  background: var(--whatsapp-green);
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+  background: var(--whatsapp-green-hover);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.55);
 }
 
 .btn-outline {
@@ -126,6 +154,7 @@ button {
 .btn-outline:hover {
   border-color: var(--primary);
   color: var(--primary);
+  transform: translateY(-2px);
 }
 
 /* Section Header Badges */
@@ -141,19 +170,135 @@ button {
   margin-bottom: 8px;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* ==============================================
+   KEYFRAME ANIMATIONS
+   ============================================== */
+@keyframes floatContinuous {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.6s ease forwards;
+.animate-float {
+  animation: floatContinuous 4s ease-in-out infinite;
 }
 
-/* Responsive Utilities */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+  70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+.animate-pulse-green {
+  animation: pulseGlow 2s infinite;
+}
+
+/* ==============================================
+   SCROLL INTERSECTION ANIMATIONS
+   ============================================== */
+.reveal-on-scroll {
+  opacity: 1; /* Safety default: visible by default so no section is ever hidden */
+  transform: translateY(0);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Initial States prior to IntersectionObserver trigger */
+.reveal-fade-up:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.reveal-fade-down:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.reveal-slide-left:not(.is-visible) {
+  opacity: 0;
+  transform: translateX(-35px);
+}
+
+.reveal-slide-right:not(.is-visible) {
+  opacity: 0;
+  transform: translateX(35px);
+}
+
+.reveal-zoom:not(.is-visible) {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+/* Visible State (Triggered on Scroll) */
+.reveal-on-scroll.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) translateX(0) scale(1) !important;
+}
+
+/* Stagger Delays for Grid Items */
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+.delay-400 { transition-delay: 0.4s; }
+
+/* Responsive Utilities & Mobile Breakpoints */
+.mobile-toggle-btn {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-toggle-btn {
+    display: flex !important;
+  }
+  
+  /* Hero & About grid stacking */
+  #hero .container,
+  #about .container > div,
+  #doctor .glass-card,
+  #locations,
+  #footer .container > div:nth-child(2) {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  h1 {
+    font-size: 2.2rem !important;
+  }
+
+  h2 {
+    font-size: 1.8rem !important;
+  }
+
+  /* Modal responsiveness */
+  .glass-card {
+    padding: 24px !important;
+  }
+}
+
 @media (max-width: 768px) {
-  .container {
-    padding: 0 16px;
+  .topbar-details {
+    display: none !important;
+  }
+
+  #hero img {
+    height: 280px !important;
+  }
+
+  /* Floating WhatsApp button scaling for mobile */
+  div[style*="fixed"][style*="bottom"] {
+    bottom: 16px !important;
+    right: 16px !important;
+  }
+
+  div[style*="fixed"][style*="bottom"] a {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  div[style*="fixed"][style*="bottom"] svg {
+    width: 26px !important;
+    height: 26px !important;
   }
 }

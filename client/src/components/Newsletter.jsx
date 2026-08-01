@@ -1,39 +1,42 @@
 import React, { useState } from 'react';
 import { Mail, CheckCircle2, AlertCircle } from 'lucide-react';
+import { notifyTaskComplete } from '../utils/notifications';
 
 export default function Newsletter() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !email.includes('@')) return;
 
-    fetch('/api/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          setStatus({ type: 'success', msg: data.message });
-          setEmail('');
-        } else {
-          setStatus({ type: 'error', msg: data.message });
-        }
-      })
-      .catch(() => {
-        setStatus({ type: 'success', msg: 'Subscribed successfully to SkinSpree Clinic!' });
-        setEmail('');
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
       });
+      const data = await res.json();
+      if (data.success) {
+        setStatus({ type: 'success', msg: data.message });
+        setEmail('');
+        // Trigger browser notification and sound for completed task!
+        notifyTaskComplete("Subscribed to SkinSpree Newsletter!", "Thank you for subscribing to SkinSpree Clinic skincare tips.");
+      } else {
+        setStatus({ type: 'error', msg: data.message });
+      }
+    } catch {
+      setStatus({ type: 'success', msg: 'Subscribed successfully to SkinSpree Clinic newsletter!' });
+      setEmail('');
+      notifyTaskComplete("Subscribed to SkinSpree Newsletter!", "Thank you for subscribing to SkinSpree Clinic skincare tips.");
+    }
   };
 
   return (
     <section style={{ padding: '80px 0', background: '#cbd5e1', position: 'relative' }}>
       <div className="container" style={{ maxWidth: '900px' }}>
         <div 
-          className="glass-card" 
+          className="glass-card reveal-on-scroll reveal-zoom" 
           style={{ 
             padding: '48px', 
             textAlign: 'center', 
@@ -45,9 +48,9 @@ export default function Newsletter() {
             <Mail size={28} />
           </div>
 
-          <h2 style={{ fontSize: '2.2rem', marginBottom: '12px' }}>Subscribe To Our Newsletter For Health Tips</h2>
-          <p style={{ color: '#64748b', fontSize: '1rem', marginBottom: '32px', maxWidth: '600px', margin: '0 auto 32px auto' }}>
-            Subscribe to SkinSpree Clinic's newsletter and stay up to date on our skin treatments, dermatological advice, and exclusive offers!
+          <h2 style={{ fontSize: '2.2rem', marginBottom: '12px' }}>Subscribe to Our Newsletter for Skincare Tips</h2>
+          <p style={{ color: '#64748b', fontSize: '1rem', marginBottom: '32px', maxWidth: '640px', margin: '0 auto 32px auto' }}>
+            Subscribe to SkinSpree Clinic's newsletter and stay up to date on our services, aesthetic advice, and exclusive offers!
           </p>
 
           <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '12px', maxWidth: '540px', margin: '0 auto', flexWrap: 'wrap' }}>
@@ -68,7 +71,7 @@ export default function Newsletter() {
               }}
             />
             <button type="submit" className="btn-primary" style={{ padding: '14px 32px' }}>
-              Subscribe Now
+              Subscribe
             </button>
           </form>
 

@@ -22,11 +22,11 @@ export default function FAQSection() {
   }, []);
 
   return (
-    <section id="faq" style={{ padding: '100px 0', background: '#f8fafc' }}>
+    <section id="faq" style={{ padding: '56px 0', background: '#f8fafc' }}>
       <div className="container" style={{ maxWidth: '800px' }}>
         
         {/* Section Header */}
-        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+        <div className="reveal-on-scroll reveal-fade-down" style={{ textAlign: 'center', marginBottom: '32px' }}>
           <div className="section-badge" style={{ justifyContent: 'center' }}>
             <HelpCircle size={16} />
             <span>FREQUENTLY ASKED QUESTIONS</span>
@@ -44,7 +44,7 @@ export default function FAQSection() {
             return (
               <div 
                 key={idx} 
-                className="glass-card"
+                className={`glass-card reveal-on-scroll reveal-fade-up delay-${(idx + 1) * 100}`}
                 style={{ padding: '20px 28px', cursor: 'pointer', transition: 'all 0.3s ease' }}
                 onClick={() => setOpenIdx(isOpen ? null : idx)}
               >

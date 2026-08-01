@@ -1,60 +1,77 @@
 import React from 'react';
-import { HelpCircle, CalendarCheck, UserCheck, HeartPulse, Sparkles } from 'lucide-react';
+import { HelpCircle, Calendar, Stethoscope, Sparkles, HeartPulse } from 'lucide-react';
 
 export default function HowItWorks() {
   const steps = [
     {
       num: '01',
-      title: 'Book An Appointment',
-      desc: 'Schedule your visit through our easy-to-use online system or by calling our support line. Choose your preferred time & doctor.'
+      icon: Calendar,
+      title: 'Book an Appointment',
+      desc: 'Schedule your consultation online or call us directly at +91 7265060006.',
+      delay: 'delay-100'
     },
     {
       num: '02',
-      title: 'Consult Our Experts',
-      desc: 'Meet with our board-certified dermatologists who conduct detailed skin diagnostic checks and recommend personalized treatments.'
+      icon: Stethoscope,
+      title: 'Consult Our Expert',
+      desc: 'Meet with Dr. Palak Gandhi for a personalized skin, hair, or nail diagnosis.',
+      delay: 'delay-200'
     },
     {
       num: '03',
-      title: 'Receive Targeted Care',
-      desc: 'Once your treatment plan is established, undergo safe, state-of-the-art medical or aesthetic laser procedures.'
+      icon: Sparkles,
+      title: 'Receive Custom Care',
+      desc: 'Undergo your tailored treatment plan using advanced medical and aesthetic technology.',
+      delay: 'delay-300'
     },
     {
       num: '04',
-      title: 'Follow-Up & Wellness',
-      desc: 'After your treatment, stay connected for follow-up skin checks and customized skincare maintenance routines.'
+      icon: HeartPulse,
+      title: 'Follow-Up & Maintenance',
+      desc: 'Regular follow-ups to ensure long-term skin health and visible, lasting results.',
+      delay: 'delay-400'
     }
   ];
 
   return (
-    <section id="process" style={{ padding: '100px 0', background: 'linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%)' }}>
+    <section id="process" style={{ padding: '56px 0', background: 'linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%)' }}>
       <div className="container">
         
         {/* Section Header */}
-        <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 64px auto' }}>
+        <div className="reveal-on-scroll reveal-fade-down" style={{ textAlign: 'center', maxWidth: '750px', margin: '0 auto 40px auto' }}>
           <div className="section-badge" style={{ justifyContent: 'center' }}>
             <HelpCircle size={16} />
             <span>HOW IT WORKS</span>
           </div>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Trusted Healthcare With A Focus On Your Well-Being</h2>
-          <p style={{ color: '#64748b', fontSize: '1.05rem' }}>
-            At SkinSpree Clinic, we have streamlined our dermatological care process so you receive prompt, expert treatment with total comfort.
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Trusted Dermatology with a Focus on Your Well-Being</h2>
+          <p style={{ color: '#64748b', fontSize: '1.05rem', lineHeight: '1.7' }}>
+            At SkinSpree Clinic, we've streamlined the dermatological process to ensure you receive the best care with ease and convenience.
           </p>
         </div>
 
-        {/* 4 Step Process Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>
-          {steps.map((step) => (
-            <div key={step.num} className="glass-card" style={{ padding: '32px', position: 'relative' }}>
-              <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#2563eb', opacity: 0.2, position: 'absolute', top: '20px', right: '24px' }}>
-                {step.num}
+        {/* 4 Step Process Cards */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '28px' }}>
+          {steps.map((step) => {
+            const Icon = step.icon;
+            return (
+              <div 
+                key={step.num} 
+                className={`glass-card reveal-on-scroll reveal-fade-up ${step.delay}`}
+                style={{ padding: '36px', position: 'relative' }}
+              >
+                <div style={{ fontSize: '2.8rem', fontWeight: '800', color: '#2563eb', opacity: 0.15, position: 'absolute', top: '20px', right: '24px' }}>
+                  {step.num}
+                </div>
+                
+                <div style={{ background: '#dbeafe', width: '52px', height: '52px', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563eb', marginBottom: '24px' }}>
+                  <Icon size={26} />
+                </div>
+
+                <h3 style={{ fontSize: '1.25rem', marginBottom: '12px', color: '#0f172a' }}>{step.title}</h3>
+                <p style={{ color: '#64748b', fontSize: '0.95rem', lineHeight: '1.65' }}>{step.desc}</p>
               </div>
-              <div style={{ background: '#dbeafe', width: '48px', height: '48px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563eb', fontWeight: '800', fontSize: '1.1rem', marginBottom: '20px' }}>
-                {step.num}
-              </div>
-              <h3 style={{ fontSize: '1.25rem', marginBottom: '12px' }}>{step.title}</h3>
-              <p style={{ color: '#64748b', fontSize: '0.925rem', lineHeight: '1.6' }}>{step.desc}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </div>

@@ -7,141 +7,116 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// In-Memory Data Store for demonstration (MongoDB fallback)
+// SkinSpree Clinic Data Store
 const DB = {
   doctors: [
     {
       id: "doc-1",
-      name: "Dr. John Smith",
-      specialty: "Senior Dermatologist & Laser Specialist",
-      qualification: "MD, FAAD (15+ Yrs Exp)",
-      image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80",
-      rating: 4.9,
-      bio: "Pioneer in advanced laser resurfacing and non-invasive facial rejuvenation treatments."
-    },
-    {
-      id: "doc-2",
-      name: "Dr. Sarah Johnson",
-      specialty: "Cosmetic & Aesthetics Surgeon",
-      qualification: "MBBS, MD Dermatology",
+      name: "Dr. Palak Sharmeel Gandhi",
+      altName: "Dr. Palak Mehta Gandhi",
+      specialty: "Medical & Cosmetic Dermatologist",
+      qualification: "MBBS (Smt. N.H.L. Municipal Medical College, Ahmedabad) | Reg: G-41873",
       image: "https://images.unsplash.com/photo-1594824813566-7885a3964506?auto=format&fit=crop&w=600&q=80",
-      rating: 5.0,
-      bio: "Expert in anti-aging treatments, dermal fillers, and personalized skincare protocols."
-    },
-    {
-      id: "doc-3",
-      name: "Dr. Michael Lee",
-      specialty: "Pediatric & Clinical Dermatologist",
-      qualification: "MD, Pediatric Skin Specialist",
-      image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=600&q=80",
-      rating: 4.8,
-      bio: "Dedicated to treating eczema, acne, psoriasis, and sensitive skin conditions across all ages."
-    },
-    {
-      id: "doc-4",
-      name: "Dr. Emily Davis",
-      specialty: "Trichologist & Scalp Expert",
-      qualification: "DNB Dermatology, Hair Restoration",
-      image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80",
       rating: 4.9,
-      bio: "Specializing in PRP hair restoration, scalp therapy, and advanced acne scar care."
+      experience: "11+ Years Experience",
+      bio: "Dr. Palak brings over 11 years of healthcare experience, specializing in medical dermatology (acne, eczema, hair loss) and advanced cosmetic procedures (lasers, fillers, Botox)."
     }
   ],
   services: [
     {
       id: "srv-1",
-      title: "Acne & Scar Rejuvenation",
+      title: "Acne & Scar Treatment",
       category: "Dermatology",
       icon: "Sparkles",
-      description: "Customized chemical peels, microneedling, and fractional laser therapy to eliminate stubborn acne scars and blemishes.",
-      price: "$120"
+      description: "Effective solutions for active acne, acne scars, and open pores using chemical peels, microneedling, and RF Matrix treatments.",
+      tagline: "Clear & Smooth Skin"
     },
     {
       id: "srv-2",
-      title: "Laser & Anti-Aging Therapy",
-      category: "Aesthetics",
-      icon: "Zap",
-      description: "FDA-approved laser skin tightening, HIFU, and collagen boost therapies for youthful, firm, glowing skin.",
-      price: "$250"
-    },
-    {
-      id: "srv-3",
-      title: "Comprehensive Skin Checkup",
-      category: "Clinical",
-      icon: "Stethoscope",
-      description: "Full body mole scanning, digital dermoscopy, and diagnostic skin health evaluation by certified dermatologists.",
-      price: "$95"
-    },
-    {
-      id: "srv-4",
       title: "Pigmentation & Brightening",
       category: "Aesthetics",
       icon: "Sun",
-      description: "Targeted laser melasma removal, glutathione therapy, and hyperpigmentation correction for an even skin tone.",
-      price: "$180"
+      description: "Advanced treatments for hyper-pigmentation, melasma, and skin brightening to restore your natural glow and even skin tone.",
+      tagline: "Even Tone & Radiance"
+    },
+    {
+      id: "srv-3",
+      title: "Anti-Aging & Wrinkles",
+      category: "Aesthetics",
+      icon: "Zap",
+      description: "Minimally invasive Botox and Dermal Fillers to reduce fine lines, wrinkles, and restore youthful volume to your face.",
+      tagline: "Youthful Rejuvenation"
+    },
+    {
+      id: "srv-4",
+      title: "Laser Hair Reduction",
+      category: "Laser Care",
+      icon: "ShieldAlert",
+      description: "Safe and permanent laser hair removal solutions using the latest technology for a smooth, hair-free skin experience.",
+      tagline: "Painless & Permanent"
     },
     {
       id: "srv-5",
-      title: "Hair & Scalp Restoration",
+      title: "Hair Fall & Trichology",
       category: "Trichology",
       icon: "Feather",
-      description: "Advanced PRP growth factor therapy, mesotherapy, and scalp detox treatments to curb hair loss and stimulate growth.",
-      price: "$210"
+      description: "Medical-grade treatments for hair loss, thinning, and scalp conditions, focusing on healthy hair growth and restoration.",
+      tagline: "Scalp & Follicle Therapy"
     },
     {
       id: "srv-6",
-      title: "24/7 Emergency Skincare Support",
-      category: "Emergency",
-      icon: "ShieldAlert",
-      description: "Immediate triage for severe allergic skin reactions, chemical burns, acute rashes, and flare-ups.",
-      price: "$150"
+      title: "HydraFacial & Skin Rejuvenation",
+      category: "Facial Care",
+      icon: "Stethoscope",
+      description: "Deep cleansing, exfoliation, and hydration treatments to revitalize dull, tired skin and achieve a healthy, glowing complexion.",
+      tagline: "Instant Radiance"
     }
   ],
   blogs: [
     {
       id: "blog-1",
-      title: "Understanding the Importance of Regular Health & Skin Checkups",
+      title: "Understanding the Importance of Regular Skin Check-ups",
       date: "January 15, 2026",
-      category: "Skincare Advice",
-      author: "Dr. Sarah Johnson",
+      category: "Dermatology Care",
+      author: "Dr. Palak Sharmeel Gandhi",
       image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",
-      excerpt: "Preventative dermatology can catch skin lesions early and boost your natural radiance. Learn why yearly dermatological scans matter."
+      excerpt: "Learn why annual dermatological screenings are crucial for early detection of skin issues and maintaining long-term skin health."
     },
     {
       id: "blog-2",
-      title: "How to Manage Stress & Prevent Hormonal Acne Breakouts",
-      date: "January 24, 2026",
-      category: "Wellness",
-      author: "Dr. John Smith",
+      title: "How Microneedling Can Transform Your Skin After 35",
+      date: "June 12, 2026",
+      category: "Aesthetic Breakthroughs",
+      author: "Dr. Palak Sharmeel Gandhi",
       image: "https://images.unsplash.com/photo-1512290900676-26c2a6a095ae?auto=format&fit=crop&w=800&q=80",
-      excerpt: "Cortisol spikes directly influence sebum production. Discover science-backed stress reduction techniques for clearer skin."
+      excerpt: "Discover how controlled micro-injuries can stimulate natural collagen production for tighter, smoother, and younger-looking skin."
     },
     {
       id: "blog-3",
-      title: "New Advances in Laser Aesthetics: What You Need to Know",
-      date: "February 01, 2026",
-      category: "Technology",
-      author: "Dr. Emily Davis",
+      title: "Advances in Laser Hair Reduction: What You Need to Know",
+      date: "July 3, 2026",
+      category: "Laser Tech",
+      author: "Dr. Palak Sharmeel Gandhi",
       image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
-      excerpt: "Explore the latest non-ablative laser innovations that deliver dramatic skin renewal with zero downtime."
+      excerpt: "A comprehensive guide to the latest laser technologies for safe, effective, and virtually painless permanent hair removal."
     }
   ],
   faqs: [
     {
       question: "What treatments does SkinSpree Clinic specialize in?",
-      answer: "SkinSpree Clinic specializes in medical dermatology, aesthetic skin rejuvenation, laser scar removal, anti-aging therapies, pigmentation correction, and hair restoration."
+      answer: "SkinSpree Clinic specializes in medical and cosmetic dermatology including Acne & Scar treatment, Pigmentation & Brightening, Anti-Aging Botox & Fillers, Laser Hair Reduction, Hair Fall & Trichology, and HydraFacials."
     },
     {
-      question: "How do I book an appointment with a dermatologist?",
-      answer: "You can easily book an appointment online using our interactive booking button on the website, or call our 24/7 helpline at +1 (555) 864-4444."
+      question: "Who is the lead doctor at SkinSpree Clinic?",
+      answer: "SkinSpree Clinic is led by Dr. Palak Sharmeel Gandhi (Dr. Palak Mehta Gandhi), a Medical and Cosmetic Dermatologist with MBBS from Smt. N.H.L. Municipal Medical College, Ahmedabad (Reg: G-41873) and 11+ years of healthcare experience."
     },
     {
-      question: "Are laser skin treatments safe for sensitive skin?",
-      answer: "Yes! We use medical-grade, FDA-cleared cooling lasers tailored precisely to your specific Fitzpatrick skin type and sensitivity profile after a patch test."
+      question: "Where are SkinSpree Clinic locations situated in Ahmedabad?",
+      answer: "We have two locations: Location 1 at A/5, Shivalik Business Center, Rajpath Club Lane, Bodakdev (10:00 AM - 5:00 PM), and Location 2 at C-4, Shivani Apartments, Opp. Azad Society,  (05:00 PM - 07:00 PM)."
     },
     {
-      question: "Where is SkinSpree Clinic located?",
-      answer: "Our main flagship clinic is located at 350 5th Ave, New York, NY 10118. We offer both in-clinic visits and virtual tele-dermatology consultations."
+      question: "How do I book an appointment or inquire on WhatsApp?",
+      answer: "You can book directly via our online booking widget, call us at +91 7265060006, or send a message on WhatsApp at +91 78258 29458."
     }
   ],
   appointments: [],
@@ -171,17 +146,18 @@ app.get('/api/faqs', (req, res) => {
 });
 
 app.post('/api/appointments', (req, res) => {
-  const { name, email, phone, service, doctor, date, notes } = req.body;
-  if (!name || !email || !phone || !service) {
-    return res.status(400).json({ success: false, message: "Please provide all required fields." });
+  const { name, email, phone, location, service, doctor, date, notes } = req.body;
+  if (!name || !phone || !service) {
+    return res.status(400).json({ success: false, message: "Please provide your name, phone number, and selected treatment." });
   }
   const newAppointment = {
     id: `apt-${Date.now()}`,
     name,
-    email,
+    email: email || "N/A",
     phone,
+    location: location || "Bodakdev, Ahmedabad",
     service,
-    doctor: doctor || "First Available Specialist",
+    doctor: doctor || "Dr. Palak Sharmeel Gandhi",
     date: date || new Date().toISOString().split('T')[0],
     notes: notes || "",
     status: "Confirmed",
@@ -190,28 +166,28 @@ app.post('/api/appointments', (req, res) => {
   DB.appointments.push(newAppointment);
   res.status(201).json({
     success: true,
-    message: "Your appointment has been successfully scheduled with SkinSpree Clinic!",
+    message: `Your appointment for ${service} has been successfully scheduled with Dr. Palak Sharmeel Gandhi at SkinSpree Clinic (${newAppointment.location})!`,
     appointment: newAppointment
   });
 });
 
 app.post('/api/contact', (req, res) => {
-  const { name, email, message } = req.body;
-  if (!name || !email || !message) {
-    return res.status(400).json({ success: false, message: "Name, email, and message are required." });
+  const { name, email, phone, message } = req.body;
+  if (!name || !message) {
+    return res.status(400).json({ success: false, message: "Name and message are required." });
   }
-  const inquiry = { id: `inq-${Date.now()}`, name, email, message, createdAt: new Date() };
+  const inquiry = { id: `inq-${Date.now()}`, name, email, phone, message, createdAt: new Date() };
   DB.contacts.push(inquiry);
-  res.status(201).json({ success: true, message: "Thank you! Our clinic team will get back to you shortly." });
+  res.status(201).json({ success: true, message: "Thank you for contacting SkinSpree Clinic. Our team will reach out to you shortly!" });
 });
 
 app.post('/api/subscribe', (req, res) => {
   const { email } = req.body;
   if (!email || !email.includes('@')) {
-    return res.status(400).json({ success: false, message: "Valid email address required." });
+    return res.status(400).json({ success: false, message: "Please enter a valid email address." });
   }
   DB.subscribers.push({ email, createdAt: new Date() });
-  res.status(200).json({ success: true, message: "Subscribed successfully to SkinSpree Clinic updates!" });
+  res.status(200).json({ success: true, message: "Thank you for subscribing to SkinSpree Clinic newsletter!" });
 });
 
 app.listen(PORT, () => {

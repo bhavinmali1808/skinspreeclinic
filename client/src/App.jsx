@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useScrollAnimation from './hooks/useScrollAnimation';
 import TopBar from './components/TopBar';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -13,9 +14,13 @@ import FAQSection from './components/FAQSection';
 import Newsletter from './components/Newsletter';
 import ContactFooter from './components/ContactFooter';
 import AppointmentModal from './components/AppointmentModal';
+import WhatsAppButton from './components/WhatsAppButton';
 
 export default function App() {
   const [bookingOpen, setBookingOpen] = useState(false);
+
+  // Initialize scroll up and down intersection animations
+  useScrollAnimation();
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -35,6 +40,9 @@ export default function App() {
       </main>
       <ContactFooter />
       <AppointmentModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
+      
+      {/* Floating WhatsApp Quick Action Button */}
+      <WhatsAppButton />
     </div>
   );
 }

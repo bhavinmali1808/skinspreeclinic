@@ -1,56 +1,109 @@
 import React from 'react';
-import { UserCheck, ShieldAlert, Headphones } from 'lucide-react';
+import { Stethoscope, Cpu, ShieldCheck, Award, Star } from 'lucide-react';
 
 export default function FeaturesBar() {
-  const features = [
+  const highlights = [
     {
-      icon: <UserCheck size={28} color="#2563eb" />,
-      title: "Expert Doctors",
-      desc: "Skilled dermatologist professionals delivering top-quality skin care.",
-      bg: "#eff6ff"
+      icon: Stethoscope,
+      title: 'Expert Dermatologist',
+      subtitle: 'Board Certified Specialist',
+      desc: 'Dr. Palak Sharmeel Gandhi delivers top-quality medical and cosmetic dermatology care.'
     },
     {
-      icon: <ShieldAlert size={28} color="#ffffff" />,
-      title: "Emergency Care",
-      desc: "Fast, reliable triage for acute skin allergies & flare-ups when needed most.",
-      bg: "#2563eb",
-      highlight: true
+      icon: Cpu,
+      title: 'Advanced Laser Technology',
+      subtitle: 'US-FDA Approved Equipment',
+      desc: 'Safe, reliable laser and RF Matrix treatments tailored for precise skin results.'
     },
     {
-      icon: <Headphones size={28} color="#2563eb" />,
-      title: "24/7 Full Support",
-      desc: "Always here for instant appointment booking & emergency consultations.",
-      bg: "#eff6ff"
+      icon: ShieldCheck,
+      title: 'Personalized Clinical Care',
+      subtitle: 'Patient-First Approach',
+      desc: 'Individualized treatment plans and dedicated follow-up for long-term skin health.'
     }
   ];
 
   return (
-    <section style={{ marginTop: '-40px', position: 'relative', zIndex: 20 }}>
+    <section style={{ background: '#f8fafc', padding: '72px 0', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}>
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
-          {features.map((item, idx) => (
-            <div 
-              key={idx} 
-              className="glass-card" 
-              style={{ 
-                padding: '32px 28px', 
-                background: item.highlight ? 'linear-gradient(135deg, #2563eb, #1d4ed8)' : '#ffffff', 
-                color: item.highlight ? '#ffffff' : '#1e293b',
-                display: 'flex',
-                alignItems: 'start',
-                gap: '20px'
-              }}
-            >
-              <div style={{ background: item.highlight ? 'rgba(255,255,255,0.2)' : item.bg, padding: '14px', borderRadius: '14px' }}>
-                {item.icon}
-              </div>
-              <div>
-                <h3 style={{ fontSize: '1.2rem', marginBottom: '8px', color: item.highlight ? '#ffffff' : '#0f172a' }}>{item.title}</h3>
-                <p style={{ fontSize: '0.9rem', color: item.highlight ? '#e0f2fe' : '#64748b', lineHeight: '1.6' }}>{item.desc}</p>
+        
+        {/* Sleek Clinical Key Metrics Bar */}
+        <div 
+          className="reveal-on-scroll reveal-fade-down"
+          style={{
+            background: '#ffffff',
+            borderRadius: '16px',
+            border: '1px solid #e2e8f0',
+            padding: '32px 48px',
+            marginBottom: '56px',
+            boxShadow: '0 4px 20px rgba(15, 23, 42, 0.04)',
+            display: 'grid',
+            gridTemplateColumns: '1fr 1px 1fr',
+            gap: '32px',
+            alignItems: 'center'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', justifyContent: 'center' }}>
+            <div style={{ background: '#eff6ff', padding: '14px', borderRadius: '12px', color: '#2563eb' }}>
+              <Award size={30} strokeWidth={1.75} />
+            </div>
+            <div>
+              <div style={{ fontSize: '2.2rem', fontWeight: '800', lineHeight: '1', color: '#0f172a', letterSpacing: '-0.5px' }}>11+ Years</div>
+              <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: '600', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                Healthcare Experience
               </div>
             </div>
-          ))}
+          </div>
+
+          <div style={{ background: '#e2e8f0', height: '50px', width: '1px' }} />
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', justifyContent: 'center' }}>
+            <div style={{ background: '#fff7ed', padding: '14px', borderRadius: '12px', color: '#ea580c' }}>
+              <Star size={30} strokeWidth={1.75} fill="#ea580c" />
+            </div>
+            <div>
+              <div style={{ fontSize: '2.2rem', fontWeight: '800', lineHeight: '1', color: '#0f172a', letterSpacing: '-0.5px' }}>4.9 / 5.0 Rating</div>
+              <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: '600', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                1000+ Happy Patients
+              </div>
+            </div>
+          </div>
         </div>
+
+        {/* Professional Feature Cards */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px' }}>
+          {highlights.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <div 
+                key={idx}
+                className={`reveal-on-scroll reveal-fade-up delay-${(idx + 1) * 100}`}
+                style={{ 
+                  background: '#ffffff', 
+                  borderRadius: '16px', 
+                  padding: '36px', 
+                  border: '1px solid #e2e8f0',
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.03)',
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
+                  <div style={{ background: '#f1f5f9', width: '48px', height: '48px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0f172a' }}>
+                    <Icon size={24} strokeWidth={1.75} />
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '1.2rem', fontWeight: '700', color: '#0f172a', lineHeight: '1.2' }}>{item.title}</h3>
+                    <div style={{ fontSize: '0.775rem', fontWeight: '600', color: '#2563eb', textTransform: 'uppercase', letterSpacing: '0.5px', marginTop: '2px' }}>
+                      {item.subtitle}
+                    </div>
+                  </div>
+                </div>
+                <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: '1.65' }}>{item.desc}</p>
+              </div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );
